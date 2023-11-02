@@ -1,0 +1,76 @@
+.container {
+    border: 2px solid forestgreen;
+    padding: 20px;
+    width: 300px;
+    margin: auto;
+    text-align: center;
+  }
+  
+  .input-field {
+    margin-bottom: 20px;
+    border: 2px solid forestgreen;
+    padding: 10px;
+  }
+  
+  input {
+    width: 100%;
+  }
+  
+  .login-button {
+    border: 2px solid forestgreen;
+    padding: 5px 15px;
+    background-color: white;
+    cursor: pointer;
+  }
+  
+  .login-button:hover {
+    background-color: forestgreen;
+    color: white;
+  }
+  
+  .tree-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+  }
+  
+  .save-tree-button {
+    border: 2px solid forestgreen;
+    padding: 5px 15px;
+    background-color: white;
+    cursor: pointer;
+  }
+  
+  .save-tree-button:hover {
+    background-color: forestgreen;
+    color: white;
+  }
+  
+  .centered-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .tree-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+  }
+  
+  .save-tree-button {
+    border: 2px solid forestgreen;
+    padding: 5px 15px;
+    background-color: white;
+    cursor: pointer;
+    margin-bottom: 20px;
+  }
+  
+  .save-tree-button:hover {
+    background-color: forestgreen;
+    color: white;
+  }
+  
