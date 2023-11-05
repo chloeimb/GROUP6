@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './styles.css';
 import treeImage from './images/tree.png'; // Update the path if the image is in a different location
+import DenseAppBar from './Navigation/topbar';
 
 const Home: React.FC = () => {
   const [savedTrees, setSavedTrees] = useState(0);
@@ -10,6 +11,7 @@ const Home: React.FC = () => {
   };
 
   return (
+    <div><DenseAppBar></DenseAppBar>
     <div className="container">
       <h1>Welcome to the Tree Saving Page</h1>
       <img src={treeImage} alt="Cartoon tree" className="tree-image" />
@@ -19,6 +21,7 @@ const Home: React.FC = () => {
         </button>
         <p>Trees Saved: {savedTrees}</p>
       </div>
+    </div>
     </div>
   );
 };
