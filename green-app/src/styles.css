@@ -16,18 +16,6 @@
     width: 100%;
   }
   
-  .login-button {
-    border: 2px solid forestgreen;
-    padding: 5px 15px;
-    background-color: white;
-    cursor: pointer;
-  }
-  
-  .login-button:hover {
-    background-color: forestgreen;
-    color: white;
-  }
-  
   .tree-image {
     max-width: 100%;
     height: auto;
