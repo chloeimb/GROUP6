@@ -21,6 +21,7 @@ import { mainListItems, secondaryListItems } from './listItems';
 import Chart from './Chart';
 import Deposits from './Deposits';
 import Orders from './Orders';
+import TemporaryDrawer from './Navigation/sidebar';
 
 function Copyright(props) {
   return (
