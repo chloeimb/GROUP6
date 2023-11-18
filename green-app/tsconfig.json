@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "types": ["node", "react", "recharts"],
     "target": "es5",
     "lib": [
       "dom",
