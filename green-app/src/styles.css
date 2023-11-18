@@ -22,6 +22,13 @@
     display: block;
     margin: 0 auto 20px;
   }
+
+  .login-image{
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto 20px;
+  }
   
   .save-tree-button {
     border: 2px solid forestgreen;
