@@ -12,8 +12,12 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import splashImage from './images/splashpage.png';
 
-function Copyright(props: any) {
+
+// ... (other imports)
+
+function Copyright(props: React.HTMLAttributes<HTMLDivElement>) {
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © '}
@@ -26,7 +30,6 @@ function Copyright(props: any) {
   );
 }
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
@@ -48,14 +51,14 @@ export default function SignInSide() {
           xs={false}
           sm={4}
           md={7}
-          sx={{
-            backgroundImage: 'url(https://source.unsplash.com/random?wallpapers)',
+          style={{
+            backgroundImage: `url(${splashImage})`,
             backgroundRepeat: 'no-repeat',
-            backgroundColor: (t) =>
+            backgroundColor: (t: any) =>
               t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-          }}
+          } as any}
         />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
@@ -118,7 +121,7 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
               </Grid>
-              <Copyright sx={{ mt: 5 }} />
+          
             </Box>
           </Box>
         </Grid>
