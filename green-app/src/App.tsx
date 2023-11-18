@@ -8,8 +8,8 @@ import {
 import Home from './Home';
 import SignInSide from './SignInSide';
 import Profile from './Profile';
-import Analytics from './Analytics';
 import AddEntry from './AddEntry';
+import Dashboard from './Dashboard';
 
 const App: React.FC = () => (
   <Router>
@@ -17,7 +17,7 @@ const App: React.FC = () => (
       <Route path="/sign-in-side" exact component={SignInSide} />
       <Route path="/home" exact component={Home} />
       <Route path="/profile" exact component={Profile} />
-      <Route path="/analytics" exact component={Analytics} />
+      <Route path="/dashboard" exact component={Dashboard} />
       <Route path="/add-entry" exact component={AddEntry} />
       <Redirect from="/" to="/sign-in-side" />
     </Switch>
