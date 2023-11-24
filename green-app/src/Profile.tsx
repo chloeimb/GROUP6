@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import DenseAppBar from './Navigation/topbar';
 
 // Import the default profile picture
-import defaultProfilePic from './images/profilePic.png';
+import defaultProfilePic from './images/defaultProfilePic.png';
 
 // Define the types for the user profile
 type UserProfile = {
@@ -65,7 +65,7 @@ const Profile: React.FC = () => {
         <img 
           src={imagePreviewUrl || defaultProfilePic} 
           alt="Profile" 
-          style={{ maxWidth: '100%', height: 'auto' }} 
+          style={{ maxWidth: '50%', height: 'auto' }} 
         />
         <form onSubmit={handleSubmit}>
           <input
