@@ -4,6 +4,7 @@
     width: 300px;
     margin: auto;
     text-align: center;
+    background-image: url('images/defaultBackground.png');
   }
   
   .input-field {
