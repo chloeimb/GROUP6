@@ -25,7 +25,7 @@ export default function DenseAppBar() {
     
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ background: 'green' }}>
+      <AppBar position="static" sx={{ background: '#567c53' }}>
         <Toolbar variant="dense">
           <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={toggleDrawer("left", true)}>
             <MenuIcon />

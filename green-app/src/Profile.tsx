@@ -1,39 +1,29 @@
 // Profile.tsx
-import React, { useState } from 'react';
-
-// Import statement for the navigation bar
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import DenseAppBar from './Navigation/topbar';
-
-// Import the default profile picture
 import defaultProfilePic from './images/defaultProfilePic.png';
+import backgroundImage from './images/lightcolorbackground.png';
 
-// Define the types for the user profile
 type UserProfile = {
   name: string;
   email: string;
   // Add other profile fields as needed
 };
 
-// The Profile component
 const Profile: React.FC = () => {
-  // State for the user profile
   const [profile, setProfile] = useState<UserProfile>({ name: '', email: '' });
-  // State for the profile image
   const [profileImage, setProfileImage] = useState<File | null>(null);
-  // State to hold the URL of the uploaded profile image for display
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
 
-  // Handler for input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
   };
 
-  // Handler for profile image change
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
       setProfileImage(e.target.files[0]);
 
-      // Create a URL for the uploaded image
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreviewUrl(reader.result as string);
@@ -42,30 +32,36 @@ const Profile: React.FC = () => {
     }
   };
 
-  // Handler for form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle the form submission, send data to the server
-    // This is where you would typically integrate with a backend service
+
+    // Mock API URL for testing (using JSONPlaceholder)
+    const apiUrl = 'https://jsonplaceholder.typicode.com/posts';
+
+    // Simulate a POST request to update user data
+    axios.post(apiUrl, { name: profile.name, email: profile.email })
+      .then((response) => {
+        console.log('User data updated successfully:', response.data);
+      })
+      .catch((error) => {
+        console.error('Error updating user data:', error);
+      });
   };
 
-  // Image and form container style
   const containerStyle = {
     maxWidth: '500px',
     margin: 'auto'
   };
 
-  // Render the component
   return (
-    <div>
-      {/* HTML for the navigation bar */}
-      <DenseAppBar></DenseAppBar>
+    <div style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh' }}>
+      <DenseAppBar />
       <h1>Profile</h1>
       <div style={containerStyle}>
-        <img 
-          src={imagePreviewUrl || defaultProfilePic} 
-          alt="Profile" 
-          style={{ maxWidth: '50%', height: 'auto' }} 
+        <img
+          src={imagePreviewUrl || defaultProfilePic}
+          alt="Profile"
+          style={{ maxWidth: '50%', height: 'auto' }}
         />
         <form onSubmit={handleSubmit}>
           <input
