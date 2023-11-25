@@ -59,7 +59,7 @@ const Profile: React.FC = () => {
 
   // Render the component
   return (
-    <div>
+    <div style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh' }}>
       {/* HTML for the navigation bar */}
       <DenseAppBar></DenseAppBar>
       <h1>Profile</h1>
