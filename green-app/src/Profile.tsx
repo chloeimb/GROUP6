@@ -15,6 +15,16 @@ const Profile: React.FC = () => {
   const [profile, setProfile] = useState<UserProfile>({ name: '', email: '' });
   const [profileImage, setProfileImage] = useState<File | null>(null);
   const [imagePreviewUrl, setImagePreviewUrl] = useState<string | null>(null);
+  const [editMode, setEditMode] = useState(false);
+
+
+  // fetch user data when component mounts 
+  // replace with actual logic for fetching user data
+  // this is a dummy user object
+  useEffect(() => {
+    setProfile({ name: 'John Doe', email: 'john@example.com'});
+  }, []);
+
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setProfile({ ...profile, [e.target.name]: e.target.value });
@@ -42,6 +52,7 @@ const Profile: React.FC = () => {
     axios.post(apiUrl, { name: profile.name, email: profile.email })
       .then((response) => {
         console.log('User data updated successfully:', response.data);
+        setEditMode(false);
       })
       .catch((error) => {
         console.error('Error updating user data:', error);
@@ -56,31 +67,24 @@ const Profile: React.FC = () => {
   return (
     <div style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh' }}>
       <DenseAppBar />
-      <h1>Profile</h1>
       <div style={containerStyle}>
-        <img
-          src={imagePreviewUrl || defaultProfilePic}
-          alt="Profile"
-          style={{ maxWidth: '50%', height: 'auto' }}
-        />
-        <form onSubmit={handleSubmit}>
-          <input
-            type="text"
-            name="name"
-            placeholder="Name"
-            value={profile.name}
-            onChange={handleInputChange}
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={profile.email}
-            onChange={handleInputChange}
-          />
-          <input type="file" onChange={handleImageChange} />
-          <button type="submit">Update Profile</button>
-        </form>
+        {editMode ? (
+          <form onSubmit={handleSubmit}>
+            <input type="text" name="name" placeholder="Name" value={profile.name} onChange={handleInputChange} />
+            <input type="email" name="email" placeholder="Email" value={profile.email} onChange={handleInputChange} />
+            <input type="file" onChange={handleImageChange} />
+            <button type="submit">Update Profile</button>
+          </form>
+        ) : (
+          <>
+            <img src={imagePreviewUrl || defaultProfilePic} alt="Profile" style={{ maxWidth: '50%', height: 'auto' }} />
+            <div>
+              <p><strong>Name:</strong> {profile.name}</p>
+              <p><strong>Email:</strong> {profile.email}</p>
+            </div>
+            <button onClick={() => setEditMode(true)}>Edit</button>
+          </>
+        )}
       </div>
     </div>
   );
