@@ -7,6 +7,8 @@ import DenseAppBar from './Navigation/topbar';
 // Import the default profile picture
 import defaultProfilePic from './images/defaultProfilePic.png';
 
+import backgroundImage from './images/lightcolorbackground.png'
+
 // Define the types for the user profile
 type UserProfile = {
   name: string;
