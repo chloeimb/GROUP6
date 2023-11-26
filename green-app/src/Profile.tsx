@@ -76,12 +76,13 @@ const Profile: React.FC = () => {
   const containerStyle = {
     maxWidth: '500px',
     margin: 'auto',
+    color: 'white',
+    size: '30px',
   };
 
   return (
-    <div style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh' }}>
+    <div style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh', fontSize: '50px' }}>
       <DenseAppBar />
-      <h1>Profile</h1>
       <div style={containerStyle}>
         {editMode ? (
           <form onSubmit={handleSubmit}>
