@@ -4,6 +4,8 @@
     width: 300px;
     margin: auto;
     text-align: center;
+    background-image: url('images/lightcolorbackground.png');
+    background-size: cover;
   }
   
   .input-field {
