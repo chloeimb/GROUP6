@@ -13,7 +13,34 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import splashImage from './images/splashpage.png';
+import { useState } from 'react';
+import { useAuth } from './auth-context';
+import { useHistory } from 'react-router-dom';
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+import { getAuth } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore'
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+// https://firebase.google.com/docs/web/setup#available-libraries
 
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAsgAmNRIaCYgyb3tnSvIPyVs5mACBFgVw",
+  authDomain: "green-3d42b.firebaseapp.com",
+  projectId: "green-3d42b",
+  storageBucket: "green-3d42b.appspot.com",
+  messagingSenderId: "166694084181",
+  appId: "1:166694084181:web:65d3b7b13d18f873bf3edc",
+  measurementId: "G-0WYKJLK1TV"
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const firestore = getFirestore(app);
 
 function Copyright(props) {
   return (
@@ -33,33 +60,41 @@ function Copyright(props) {
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
-  const handleSubmit = (event) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const auth = useAuth(); // Replace with your authentication context
+  const history = useHistory(); // Replace with your routing library
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
-      password: data.get('password'),
-    });
+
+    try {
+      // Sign in with Firebase Authentication
+      await signInWithEmailAndPassword(auth, email, password);
+      history.push('/dashboard'); // Redirect to dashboard after successful login
+    } catch (error) {
+      console.error('Error signing in:', error.message);
+    }
+  };
+
+  const handleSignUp = async () => {
+    try {
+      // Sign up with Firebase Authentication
+      await createUserWithEmailAndPassword(auth, email, password);
+
+      // You can also add user data to Firestore here if needed
+      // firestore.collection('users').doc(auth.currentUser?.uid).set({ email });
+
+      history.push('/dashboard'); // Redirect to dashboard after successful signup
+    } catch (error) {
+      console.error('Error signing up:', error.message);
+    }
   };
 
   return (
     <ThemeProvider theme={defaultTheme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
-        <CssBaseline />
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
-          sx={{
-            backgroundImage: `url(${splashImage})`,
-            backgroundRepeat: 'no-repeat',
-            backgroundColor: (t) =>
-              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
+        {/* ... (other JSX code) */}
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
@@ -86,6 +121,8 @@ export default function SignInSide() {
                 name="email"
                 autoComplete="email"
                 autoFocus
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <TextField
                 margin="normal"
@@ -96,6 +133,8 @@ export default function SignInSide() {
                 type="password"
                 id="password"
                 autoComplete="current-password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <FormControlLabel
                 control={<Checkbox value="remember" color="primary" />}
@@ -109,6 +148,15 @@ export default function SignInSide() {
               >
                 Sign In
               </Button>
+              <Button
+                fullWidth
+                variant="contained"
+                color="primary"
+                onClick={handleSignUp}
+                sx={{ mt: 1, mb: 2 }}
+              >
+                Sign Up
+              </Button>
               <Grid container>
                 <Grid item xs>
                   <Link href="#" variant="body2">
@@ -121,7 +169,9 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
               </Grid>
-              <Copyright sx={{ mt: 5 }} />
+              <Box mt={5}>
+                <Copyright />
+              </Box>
             </Box>
           </Box>
         </Grid>
