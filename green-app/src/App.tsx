@@ -5,7 +5,7 @@ import {
   Switch,
   Redirect,
 } from 'react-router-dom';
-import { AuthProvider } from './auth-context';
+import { AuthProvider, useAuth } from './auth-context';
 import Home from './Home';
 import SignInSide from './SignInSide';
 import Profile from './Profile';
@@ -16,11 +16,10 @@ const App: React.FC = () => (
   <Router>
     <AuthProvider>
       <Switch>
-        <Route path="/sign-in-side" exact component={SignInSide} />
-        <Route path="/home" exact component={Home} />
-        <Route path="/profile" exact component={Profile} />
-        <Route path="/dashboard" exact component={Dashboard} />
-        <Route path="/add-entry" exact component={AddEntry} />
+        <Route path="/sign-in-side" exact component={() => <SignInSide />} />
+        <Route path="/home" exact component={() => <Home />} />
+        <Route path="/profile" exact component={() => <Profile />} />
+        <Route path="/dashboard" exact component={() => <Dashboard />} />
         <Redirect from="/" to="/sign-in-side" />
       </Switch>
     </AuthProvider>

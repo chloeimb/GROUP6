@@ -16,31 +16,12 @@ import splashImage from './images/splashpage.png';
 import { useState } from 'react';
 import { useAuth } from './auth-context';
 import { useHistory } from 'react-router-dom';
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-import { getAuth } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore'
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyAsgAmNRIaCYgyb3tnSvIPyVs5mACBFgVw",
-  authDomain: "green-3d42b.firebaseapp.com",
-  projectId: "green-3d42b",
-  storageBucket: "green-3d42b.appspot.com",
-  messagingSenderId: "166694084181",
-  appId: "1:166694084181:web:65d3b7b13d18f873bf3edc",
-  measurementId: "G-0WYKJLK1TV"
-};
-
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-const auth = getAuth(app);
-const firestore = getFirestore(app);
 
 function Copyright(props) {
   return (
@@ -71,7 +52,7 @@ export default function SignInSide() {
     try {
       // Sign in with Firebase Authentication
       await signInWithEmailAndPassword(auth, email, password);
-      history.push('/dashboard'); // Redirect to dashboard after successful login
+      history.push('/home'); // Redirect to dashboard after successful login
     } catch (error) {
       console.error('Error signing in:', error.message);
     }
@@ -85,7 +66,7 @@ export default function SignInSide() {
       // You can also add user data to Firestore here if needed
       // firestore.collection('users').doc(auth.currentUser?.uid).set({ email });
 
-      history.push('/dashboard'); // Redirect to dashboard after successful signup
+      history.push('/home'); // Redirect to dashboard after successful signup
     } catch (error) {
       console.error('Error signing up:', error.message);
     }
