@@ -7,7 +7,16 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import TemporaryDrawer from './sidebar';
 
-export default function DenseAppBar() {
+
+type DenseAppBarProps = {
+  children?: React.ReactNode;
+};
+
+function isKeyboardEvent(event: React.KeyboardEvent | React.MouseEvent): event is React.KeyboardEvent {
+  return 'key' in event;
+}
+
+const DenseAppBar: React.FC<DenseAppBarProps> = ({ children }) => {
     const [state, setState] = React.useState({
         top: false,
         left: false,
@@ -15,15 +24,20 @@ export default function DenseAppBar() {
         right: false,
       });
     
-      const toggleDrawer = (anchor, open) => (event) => {
-        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
-          return;
+      const toggleDrawer = (anchor: string, open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
+        if (event.type === 'keydown' && isKeyboardEvent(event)) {
+          // It's a KeyboardEvent
+          if (event.key === 'Tab' || event.key === 'Shift') {
+            return;
+          }
         }
     
         setState({ ...state, [anchor]: open });
       };
     
+  
   return (
+    <div className="dense-app-bar">
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ background: '#567c53' }}>
         <Toolbar variant="dense">
@@ -37,5 +51,8 @@ export default function DenseAppBar() {
       </AppBar>
       <TemporaryDrawer state={state} setState={setState} toggleDrawer={toggleDrawer}></TemporaryDrawer>
     </Box>
+    </div>
   );
 }
+
+export default DenseAppBar;
