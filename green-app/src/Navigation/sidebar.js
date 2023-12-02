@@ -38,15 +38,6 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
           </ListItemButton>
         </ListItem>
 
-        <ListItem key="Dashboard" disablePadding>
-          <ListItemButton href='/dashboard'>
-            <ListItemIcon>
-              <InboxIcon />
-            </ListItemIcon>
-            <ListItemText primary="Dashboard" />
-          </ListItemButton>
-        </ListItem>
-
         <ListItem key="Add Entry" disablePadding>
           <ListItemButton href="/add-entry">
             <ListItemIcon>
