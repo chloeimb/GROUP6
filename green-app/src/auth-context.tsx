@@ -1,36 +1,17 @@
+// auth-context.tsx
 import React, { createContext, useContext, useEffect, useState } from 'react';
-import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword as createUserWithEmailAndPasswordFirebase, signInWithEmailAndPassword as signInWithEmailAndPasswordFirebase, signOut as signOutFirebase, Auth } from 'firebase/auth';
-
-import { initializeApp } from 'firebase/app';
-
-// Initialize Firebase
-const firebaseConfig = {
-  apiKey: "AIzaSyAsgAmNRIaCYgyb3tnSvIPyVs5mACBFgVw",
-  authDomain: "green-3d42b.firebaseapp.com",
-  projectId: "green-3d42b",
-  storageBucket: "green-3d42b.appspot.com",
-  messagingSenderId: "166694084181",
-  appId: "1:166694084181:web:65d3b7b13d18f873bf3edc",
-  measurementId: "G-0WYKJLK1TV"
-};
-
-const app = initializeApp(firebaseConfig);
+import { getAuth, onAuthStateChanged, Auth, signInWithEmailAndPassword as signInWithEmailAndPasswordFirebase } from 'firebase/auth';
+import app from './firebase';
 
 interface AuthContextProps {
   currentUser: any;
-  signInWithEmailAndPassword: (auth: Auth, email: string, password: string) => Promise<void>; // Update the type here
-  createUserWithEmailAndPassword: (email: string, password: string) => Promise<void>;
-  signOut: () => Promise<void>;
-  auth: Auth;
+  signInWithEmailAndPassword: (email: string, password: string) => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextProps | undefined>(undefined);
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const auth: Auth = getAuth(app);
-
-
-  
   const [currentUser, setCurrentUser] = useState<any | null>(null);
 
   useEffect(() => {
@@ -41,36 +22,25 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     return () => unsubscribe();
   }, [auth]);
 
-  const signInWithEmailAndPassword = async (auth: Auth, email: string, password: string) => {
-    await signInWithEmailAndPasswordFirebase(auth, email, password);
-  };
-  
-  const createUserWithEmailAndPassword = async (email: string, password: string) => {
-    await createUserWithEmailAndPasswordFirebase(auth, email, password);
-  };
-
-  const signOut = async () => {
-    await signOutFirebase(auth);
+  const signInWithEmailAndPassword = async (email: string, password: string) => {
+    try {
+      await signInWithEmailAndPasswordFirebase(auth, email, password);
+    } catch (error: any) {
+      console.error('Error signing in:', (error as Error).message);
+      throw error;
+    }
   };
 
   const value: AuthContextProps = {
     currentUser,
     signInWithEmailAndPassword,
-    createUserWithEmailAndPassword,
-    signOut,
-    auth,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
-
-// auth-context.tsx
-
-// auth-context.tsx
-
 export const useAuth = () => {
-  const context = useContext<AuthContextProps | undefined>(AuthContext);
+  const context = useContext(AuthContext);
 
   if (!context) {
     throw new Error('useAuth must be used within an AuthProvider');
@@ -78,5 +48,3 @@ export const useAuth = () => {
 
   return context;
 };
-
-

@@ -1,12 +1,8 @@
+// App.tsx
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
-import { AuthProvider, useAuth } from './auth-context';
-import Home from './Home';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { AuthProvider } from './auth-context';
+import Home from './Home'; // Make sure to import your components
 import SignInSide from './SignInSide';
 import Profile from './Profile';
 import AddEntry from './AddEntry';

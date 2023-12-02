@@ -1,3 +1,4 @@
+// SignInSide.tsx
 import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -15,71 +16,58 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import splashImage from './images/splashpage.png';
 import { useState } from 'react';
 import { useAuth } from './auth-context';
-import { AuthProvider } from './auth-context';
 import { useHistory } from 'react-router-dom';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
-import { signInWithEmailAndPassword } from 'firebase/auth';
-// https://firebase.google.com/docs/web/setup#available-libraries
 
-// ... (other imports)
-
-function Copyright(props: React.HTMLAttributes<HTMLDivElement>) {
-  return (
-    <Typography variant="body2" color="text.secondary" align="center" {...props}>
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
-
-const defaultTheme = createTheme();
-
-export default function SignInSide() {
-  
-  const { signInWithEmailAndPassword } = useAuth(); // Use the hook to get the auth methods
+function SignInSide() {
+  const { signInWithEmailAndPassword } = useAuth();
   const history = useHistory();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
-
-  const { auth } = useAuth();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    console.log('Submit button clicked');
 
     try {
-      await signInWithEmailAndPassword(auth, email, password); // Pass 'auth' as the first argument
+      await signInWithEmailAndPassword(email, password);
       history.push('/home');
     } catch (error: any) {
-      console.error('Error signing in:', error.message);
+      console.error('Error signing in:', (error as Error).message);
     }
   };
-  
 
   const handleSignUp = async () => {
+    console.log('Sign Up button clicked');
+
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      history.push('/home');
+      // You might want to implement a separate function for sign-up
+      // depending on your authentication flow
+      // await signUpWithEmailAndPassword(email, password);
+      // history.push('/home');
     } catch (error: any) {
-      if (error instanceof Error) {
-        console.error('Error signing up:', error.message);
-        // Display error message to the user
-      } else {
-        console.error('Error signing up:', error);
-        // Display a generic error message to the user
-      }
+      console.error('Error signing up:', (error as Error).message);
     }
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={createTheme()}>
       <Grid container component="main" sx={{ height: '100vh' }}>
-        {/* ... (other JSX code) */}
+        <CssBaseline />
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
+          style={{
+            backgroundImage: `url(${splashImage})`,
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: (t: any) =>
+              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          } as any}
+        />
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
@@ -125,21 +113,10 @@ export default function SignInSide() {
                 control={<Checkbox value="remember" color="primary" />}
                 label="Remember me"
               />
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2 }}
-              >
+              <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
                 Sign In
               </Button>
-              <Button
-                fullWidth
-                variant="contained"
-                color="primary"
-                onClick={handleSignUp}
-                sx={{ mt: 1, mb: 2 }}
-              >
+              <Button fullWidth variant="contained" color="primary" onClick={handleSignUp} sx={{ mt: 1, mb: 2 }}>
                 Sign Up
               </Button>
               <Grid container>
@@ -154,9 +131,6 @@ export default function SignInSide() {
                   </Link>
                 </Grid>
               </Grid>
-              <Box mt={5}>
-                <Copyright />
-              </Box>
             </Box>
           </Box>
         </Grid>
@@ -164,3 +138,5 @@ export default function SignInSide() {
     </ThemeProvider>
   );
 }
+
+export default SignInSide;
