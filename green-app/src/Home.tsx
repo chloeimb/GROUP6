@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DenseAppBar from './Navigation/topbar';
 import defaultBackgroundImage from './images/lightcolorbackground.png';
+import defaultProfilePic from './images/defaultProfilePic.png'
 
 type DailyActivities = {
   recycling: number;
@@ -19,6 +20,7 @@ const Profile: React.FC = () => {
     reducingWaste: 0,
     other: '',
   });
+  const [profilePic, setProfilePic] = useState<string | null>(null);
   const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
@@ -32,6 +34,7 @@ const Profile: React.FC = () => {
       reducingWaste: 3,
       other: 'Other activities description',
     });
+    setProfilePic(defaultProfilePic); 
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -73,7 +76,10 @@ const Profile: React.FC = () => {
       backgroundSize: 'cover',
       backgroundPosition: 'center', } as any}>
       
-      <DenseAppBar />
+      <DenseAppBar>
+        <img src={profilePic || defaultProfilePic} alt="Profile" style={{ width: '40px', height: '40px', borderRadius: '50%', marginRight: '10px' }} />
+      </DenseAppBar>
+
       <div style={containerStyle}>
         {editMode ? (
           <form onSubmit={handleSubmit}>
