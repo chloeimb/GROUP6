@@ -13,7 +13,11 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import splashImage from './images/splashpage.png';
-
+import { useState } from 'react';
+import { useAuth } from './auth-context';
+import { useHistory } from 'react-router-dom';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 
 // ... (other imports)
 
