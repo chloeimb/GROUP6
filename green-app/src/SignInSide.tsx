@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import splashImage from './images/splashpage.png';
 import { useState } from 'react';
 import { useAuth } from './auth-context';
+import { AuthProvider } from './auth-context';
 import { useHistory } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { signInWithEmailAndPassword } from 'firebase/auth';
@@ -38,22 +39,25 @@ function Copyright(props: React.HTMLAttributes<HTMLDivElement>) {
 const defaultTheme = createTheme();
 
 export default function SignInSide() {
+  
+  const { signInWithEmailAndPassword } = useAuth(); // Use the hook to get the auth methods
+  const history = useHistory();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const auth = useAuth();
-  const history = useHistory();
+  
+
+  const { auth } = useAuth();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-  
+
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await signInWithEmailAndPassword(auth, email, password); // Pass 'auth' as the first argument
       history.push('/home');
     } catch (error: any) {
       console.error('Error signing in:', error.message);
     }
-    
   };
   
 
