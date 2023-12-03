@@ -77,11 +77,11 @@ const Profile: React.FC = () => {
     maxWidth: '500px',
     margin: 'auto',
     color: 'white',
-    size: '30px',
+    fontSize: '20px', // Adjusted font size
   };
 
   return (
-    <div style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh', fontSize: '50px' }}>
+    <div style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', height: '100vh', position: 'relative' }}>
       <DenseAppBar />
       <div style={containerStyle}>
         {editMode ? (
@@ -96,7 +96,7 @@ const Profile: React.FC = () => {
           </form>
         ) : (
           <>
-            <img src={imagePreviewUrl || defaultProfilePic} alt="Profile" style={{ maxWidth: '50%', height: 'auto' }} />
+            <img src={imagePreviewUrl || defaultProfilePic} alt="Profile" style={{ maxWidth: '50%', height: '100px' }} />
             <div>
               <p><strong>Name:</strong> {profile.name}</p>
               <p><strong>Email:</strong> {profile.email}</p>
@@ -104,7 +104,7 @@ const Profile: React.FC = () => {
               <p><strong>Age:</strong> {profile.age}</p>
               <p><strong>Gender:</strong> {profile.gender}</p>
             </div>
-            <button onClick={() => setEditMode(true)}>Edit</button>
+            <button style={{ position: 'absolute', bottom: 0, right: 0, margin: '16px', fontSize: '16px' }} onClick={() => setEditMode(true)}>Edit</button>
           </>
         )}
       </div>
