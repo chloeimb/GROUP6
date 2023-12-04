@@ -22,7 +22,6 @@ const Profile: React.FC = () => {
     other: '',
     cfrr: 0,
   });
-  const [profilePic, setProfilePic] = useState<string | null>(null);
   const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
@@ -37,7 +36,6 @@ const Profile: React.FC = () => {
       other: 'Other activities description',
       cfrr: 15,
     });
-    setProfilePic(defaultProfilePic); 
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -78,10 +76,6 @@ const Profile: React.FC = () => {
         t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
       backgroundSize: 'cover',
       backgroundPosition: 'center', } as any}>
-      
-      <DenseAppBar>
-        <img src={profilePic || defaultProfilePic} alt="Profile" style={{ width: '40px', height: '40px', borderRadius: '50%', marginRight: '10px' }} />
-      </DenseAppBar>
 
       <div style={containerStyle}>
         {editMode ? (
