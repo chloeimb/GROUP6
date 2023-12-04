@@ -10,7 +10,6 @@ type DailyActivities = {
   plantingTrees: number;
   reducingWaste: number;
   other: string;
-  cfrr: number;
 };
 
 const Profile: React.FC = () => {
@@ -20,8 +19,8 @@ const Profile: React.FC = () => {
     plantingTrees: 0,
     reducingWaste: 0,
     other: '',
-    cfrr: 0,
   });
+  const [profilePic, setProfilePic] = useState<string | null>(null);
   const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
@@ -34,8 +33,8 @@ const Profile: React.FC = () => {
       plantingTrees: 10,
       reducingWaste: 3,
       other: 'Other activities description',
-      cfrr: 15,
     });
+    setProfilePic(defaultProfilePic); 
   }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,7 +60,7 @@ const Profile: React.FC = () => {
   };
 
   const containerStyle = {
-    maxWidth: '600px',
+    maxWidth: '500px',
     margin: 'auto',
     color: 'white',
     size: '30px',
@@ -76,6 +75,10 @@ const Profile: React.FC = () => {
         t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
       backgroundSize: 'cover',
       backgroundPosition: 'center', } as any}>
+      
+      <DenseAppBar>
+        <img src={profilePic || defaultProfilePic} alt="Profile" style={{ width: '40px', height: '40px', borderRadius: '50%', marginRight: '10px' }} />
+      </DenseAppBar>
 
       <div style={containerStyle}>
         {editMode ? (
@@ -85,9 +88,7 @@ const Profile: React.FC = () => {
             <input type="number" name="plantingTrees" placeholder="Planting Trees (number)" value={dailyActivities.plantingTrees} onChange={handleInputChange} />
             <input type="number" name="reducingWaste" placeholder="Reducing Waste (in kg)" value={dailyActivities.reducingWaste} onChange={handleInputChange} />
             <input type="text" name="other" placeholder="Other Activities" value={dailyActivities.other} onChange={handleInputChange} />
-            <input type="text" name="other" placeholder="Cfrr" value={dailyActivities.cfrr} onChange={handleInputChange} />
             <button type="submit">Update Daily Activities</button>
-
           </form>
         ) : (
           <>
@@ -97,17 +98,8 @@ const Profile: React.FC = () => {
               <p><strong>Planting Trees:</strong> {dailyActivities.plantingTrees} trees</p>
               <p><strong>Reducing Waste:</strong> {dailyActivities.reducingWaste} kg</p>
               <p><strong>Other Activities:</strong> {dailyActivities.other}</p>
-              <p><strong>Desired Reduction in Carbon Footprint?:</strong> {dailyActivities.cfrr} %</p>
             </div>
             <button onClick={() => setEditMode(true)}>Edit</button>
-
-            <div>
-              <p><strong>To reach your Carbon Footprint Reduction of</strong> {dailyActivities.cfrr} % <strong> here are your new goals:</strong></p>
-              <p><strong>Recycling:</strong> {(dailyActivities.recycling*((100+dailyActivities.cfrr)/100)).toFixed(2)} kg</p>
-              <p><strong>Biking:</strong> {(dailyActivities.biking*((100+dailyActivities.cfrr)/100)).toFixed(2)} km</p>
-              <p><strong>Planting Trees:</strong> {(dailyActivities.plantingTrees*((100+dailyActivities.cfrr)/100)).toFixed(2)} trees</p>
-              <p><strong>Reducing Waste:</strong> {(dailyActivities.reducingWaste*((100+dailyActivities.cfrr)/100)).toFixed(2)} kg</p>
-            </div>
           </>
         )}
       </div>

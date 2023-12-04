@@ -9,7 +9,6 @@ import Home from './Home';
 import SignInSide from './SignInSide';
 import Profile from './Profile';
 import AddEntry from './AddEntry';
-import Analytics from './Analytics';
 
 
 const App: React.FC = () => (
@@ -19,7 +18,6 @@ const App: React.FC = () => (
       <Route path="/home" exact component={Home} />
       <Route path="/profile" exact component={Profile} />
       <Route path="/add-entry" exact component={AddEntry} />
-      <Route path="/analytics" exact component={Analytics} />
       <Redirect from="/" to="/sign-in-side" />
     </Switch>
   </Router>
