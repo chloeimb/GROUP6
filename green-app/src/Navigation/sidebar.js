@@ -46,16 +46,6 @@ export default function TemporaryDrawer({ state, setState, toggleDrawer }) {
             <ListItemText primary="Add Entry" />
           </ListItemButton>
         </ListItem>
-
-        <ListItem key="Analytics" disablePadding>
-          <ListItemButton href="/analytics">
-            <ListItemIcon>
-              <MailIcon />
-            </ListItemIcon>
-            <ListItemText primary="Analytics" />
-          </ListItemButton>
-        </ListItem>
-
       </List>
     </Box>
   );
