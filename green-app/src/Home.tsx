@@ -78,6 +78,7 @@ const Profile: React.FC = () => {
       backgroundPosition: 'center', } as any}>
       <DenseAppBar />
       <div style={containerStyle}>
+      <h1>Home</h1>
         {editMode ? (
           <form onSubmit={handleSubmit}>
             <input type="number" name="recycling" placeholder="Recycling (in kg)" value={dailyActivities.recycling} onChange={handleInputChange} />

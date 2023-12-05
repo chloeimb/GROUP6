@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import DenseAppBar from './Navigation/topbar';
+import defaultBackgroundImage from './images/lightcolorbackground.png';
 
 const AddEntry = () => {
   const [entries, setEntries] = useState([
@@ -19,26 +20,53 @@ const AddEntry = () => {
     }
   };
 
+  const containerStyle = {
+    maxWidth: '500px',
+    margin: 'auto',
+    color: 'white',
+    fontSize: '20px',
+    padding: '20px', // Padding added for spacing inside the div
+  };
+
+  const entryInputStyle = {
+    marginRight: '10px', // Space between input and button
+  };
+
+  const sectionSpacingStyle = {
+    marginBottom: '30px', // Space between sections
+  };
+
   return (
-    <div style={{ backgroundColor: '#228B22', color: 'white', padding: '20px' }}>
+    <div style={{ 
+      height: '100vh',
+      backgroundImage: `url(${defaultBackgroundImage})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundColor: (t: any) => t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+    } as any}>
       <DenseAppBar></DenseAppBar>
-      <h1>Add Entry to Going Green Journal</h1>
-      <div>
-        <input
-          type="text"
-          value={newEntry}
-          onChange={(e) => setNewEntry(e.target.value)}
-          placeholder="Write your green activity..."
-          style={{ marginRight: '10px' }}
-        />
-        <button onClick={handleAddEntry}>Add Entry</button>
+      <div style={{ ...containerStyle, ...sectionSpacingStyle }}>
+        <h1>Add Entry to Going Green Journal</h1>
+        <div>
+          <input
+            type="text"
+            value={newEntry}
+            onChange={(e) => setNewEntry(e.target.value)}
+            placeholder="Write your green activity..."
+            style={entryInputStyle}
+          />
+          <button onClick={handleAddEntry}>Add Entry</button>
+        </div>
       </div>
-      <h2>Journal Entries</h2>
-      <ul>
-        {entries.map((entry) => (
-          <li key={entry.id}>{entry.content}</li>
-        ))}
-      </ul>
+      <div style={{ ...containerStyle, ...sectionSpacingStyle }}>
+        <h2>Journal Entries</h2>
+        <ul>
+          {entries.map((entry) => (
+            <li key={entry.id}>{entry.content}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
