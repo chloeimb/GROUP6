@@ -93,8 +93,6 @@ const Profile: React.FC = () => {
     size: '30px',
   };
 
-
-
   return (
     <div style={{ 
       height: '115vh', 
@@ -105,8 +103,8 @@ const Profile: React.FC = () => {
       backgroundSize: 'cover',
       backgroundPosition: 'center', } as any}>
       <DenseAppBar />
-
       <div style={containerStyle}>
+      <h1>Analytics</h1>
         {editMode ? (
           <form onSubmit={handleSubmit}>
             <input type="number" name="automobileusage" placeholder="Autombile Usage (in miles / yr)" value={usageActivities.automobileusage} onChange={handleInputChange} />
