@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import DenseAppBar from './Navigation/topbar';
 import defaultBackgroundImage from './images/lightcolorbackground.png';
+import { Link } from 'react-router-dom';
+
 import defaultProfilePic from './images/defaultProfilePic.png'
 
 type DailyActivities = {
@@ -86,7 +88,7 @@ const Profile: React.FC = () => {
             <input type="number" name="plantingTrees" placeholder="Planting Trees (number)" value={dailyActivities.plantingTrees} onChange={handleInputChange} />
             <input type="number" name="reducingWaste" placeholder="Reducing Waste (in kg)" value={dailyActivities.reducingWaste} onChange={handleInputChange} />
             <input type="text" name="other" placeholder="Other Activities" value={dailyActivities.other} onChange={handleInputChange} />
-            <input type="text" name="other" placeholder="Cfrr" value={dailyActivities.cfrr} onChange={handleInputChange} />
+            <input type="number" name="cfrr" placeholder="Cfrr" value={dailyActivities.cfrr} onChange={handleInputChange} />
             <button type="submit">Update Daily Activities</button>
 
           </form>
@@ -103,12 +105,14 @@ const Profile: React.FC = () => {
             <button onClick={() => setEditMode(true)}>Edit</button>
 
             <div>
-              <p><strong>To reach your Carbon Footprint Reduction of</strong> {dailyActivities.cfrr} % <strong> here are your new goals:</strong></p>
-              <p><strong>Recycling:</strong> {(dailyActivities.recycling*((100+dailyActivities.cfrr)/100)).toFixed(2)} kg</p>
-              <p><strong>Biking:</strong> {(dailyActivities.biking*((100+dailyActivities.cfrr)/100)).toFixed(2)} km</p>
-              <p><strong>Planting Trees:</strong> {(dailyActivities.plantingTrees*((100+dailyActivities.cfrr)/100)).toFixed(2)} trees</p>
-              <p><strong>Reducing Waste:</strong> {(dailyActivities.reducingWaste*((100+dailyActivities.cfrr)/100)).toFixed(2)} kg</p>
+              <p><strong>Recycling:</strong> {(dailyActivities.recycling * (1 + dailyActivities.cfrr / 100)).toFixed(2)} kg</p>
+              <p><strong>Biking:</strong> {(dailyActivities.biking * (1 + dailyActivities.cfrr / 100)).toFixed(2)} km</p>
+              <p><strong>Planting Trees:</strong> {(dailyActivities.plantingTrees * (1 + dailyActivities.cfrr / 100)).toFixed(2)} trees</p>
+              <p><strong>Reducing Waste:</strong> {(dailyActivities.reducingWaste * (1 + dailyActivities.cfrr / 100)).toFixed(2)} kg</p>
             </div>
+            <button>
+              <Link to={{ pathname: '/timeline', state: { dailyActivities } }}>View Timeline</Link>
+            </button>
           </>
         )}
       </div>
