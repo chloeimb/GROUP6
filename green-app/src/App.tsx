@@ -20,7 +20,7 @@ const App: React.FC = () => (
       <Route path="/profile" exact component={Profile} />
       <Route path="/add-entry" exact component={AddEntry} />
       <Route path="/analytics" exact component={Analytics} />
-      <Redirect from="/" to="/sign-in-side" />
+      <Redirect from="/" to="/home" />
     </Switch>
   </Router>
 );
