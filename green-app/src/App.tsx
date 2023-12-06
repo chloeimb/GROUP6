@@ -10,6 +10,7 @@ import SignInSide from './SignInSide';
 import Profile from './Profile';
 import AddEntry from './AddEntry';
 import Analytics from './analytics';
+import Timeline from './Timeline';
 
 
 const App: React.FC = () => (
@@ -20,6 +21,7 @@ const App: React.FC = () => (
       <Route path="/profile" exact component={Profile} />
       <Route path="/add-entry" exact component={AddEntry} />
       <Route path="/analytics" exact component={Analytics} />
+      <Route path="/timeline" exact component={Timeline} />
       <Redirect from="/" to="/home" />
     </Switch>
   </Router>
