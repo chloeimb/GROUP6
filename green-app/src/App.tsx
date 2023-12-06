@@ -22,7 +22,7 @@ const App: React.FC = () => (
       <Route path="/add-entry" exact component={AddEntry} />
       <Route path="/analytics" exact component={Analytics} />
       <Route path="/timeline" exact component={Timeline} />
-      <Redirect from="/" to="/sign-in-side" />
+      <Redirect from="/" to="/home" />
     </Switch>
   </Router>
 );
